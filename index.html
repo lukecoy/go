@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+  <head>
+    <title>Foo</title>
+
+    <meta charset="utf-8" />
+    <meta name="description" content="Foo foo">
+    <meta name="keywords" content="Foo,Bar">
+    <meta name="author" content="Luke Coy">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="height=device-height,initial-scale=1">
+
+    <link href="index.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <main></main>
+    <script src="./get-board-skeleton-html.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var length = 19;
+      var isFirstPlayersTurn = true;
+      // 1.) Append styles based on length below
+
+      var head = document.head;
+      var newStyle = document.createElement('style');
+      newStyle.type = 'text/css';
+      // TODO: Works fine on mobile, but could be a liiittllee bit better.
+      newStyle.appendChild(document.createTextNode(`
+      button, div {
+        width: calc(80vw / ${length+1});
+        max-width: calc(60vh / ${length+1});
+        height: calc(80vw / ${length+1});
+        max-height: calc(60vh / ${length+1});
+      }
+      `));
+      head.appendChild(newStyle);
+
+      // 2.) Append the table & table event listeners
+      
+      const onTableClick = (event) => {
+        event.stopPropagation();
+
+        if (event.target.tagName !== 'BUTTON') return;
+
+        event.target.parentElement.innerHTML = `<div class="${isFirstPlayersTurn ? 'white' : 'black'}"></div>`;
+        isFirstPlayersTurn = !isFirstPlayersTurn;
+      };
+
+      document.querySelector('main').innerHTML = window.getBoardSkeletonHtml(length);
+      // Use capturing, not bubbling, to trigger the table click funtion 
+      // since there's no relevant events on the descendent elements
+      
+      // TODO: Should investigate this for mobile, where just using click events
+      // can feel sluggish
+      document.querySelector('table').addEventListener('click', onTableClick, true);
+
+      // TODO - On button mouse hover, I think we should think about expose a little outline
+      // for users to know where they're about to place 
+    </script>
+  </body>
+</html>

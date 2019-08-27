@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+}
+
+main {
+  width:100vw;
+  height:100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  table-layout: fixed;
+  border-spacing: 0;  
+  box-shadow: 0 4px 8px hsla(0,0%,50.2%,.71);
+  background-image: url(./wood.png);
+  border-collapse: collapse;
+  outline: 1px solid; 
+}
+
+th {
+  font-size: 2vmin;
+}
+
+thead th {
+  /* Enforces MIN CELL WIDTH */
+  min-width: 12px;
+  padding: 0;
+ }
+
+button {
+  min-height: 12px;
+  min-width: 12px;
+  background: transparent;
+  border: none !important;
+  font-size:0;
+}
+
+div {
+  border-radius: 50%;
+  box-shadow: 0 2px 4px black;
+}
+
+.white {
+  background-color: white;
+}
+
+.black {
+  background-color: #404041;
+}
+
+div, button {
+  position: relative;
+  z-index: 1;
+  margin: 0 1px;
+}
+
+tbody th {
+  padding: 0; 
+}
+
+td {
+  position: relative;
+  padding: 0;
+  
+  /* Lines below are for showing the "real" table, for debugging
+  outline: 1px dashed;
+  outline-color: rgba(170, 50, 220, .3); 
+  */
+}
+
+/* Use this as a vertical line up the middle */
+td::before {
+  position: absolute;
+  content: "";
+  height: calc(100%);
+  border: .5px solid;
+  left: calc(100% / 2);
+  top: 0;
+}
+
+tr:first-child > td::before {
+  top: calc(100% / 2);
+  height: calc(100% / 2);
+}
+
+tr:last-child > td::before {
+  height: calc(100% / 2);
+}
+
+/* Use this as a horizontal line up the middle */
+td::after {
+  position: absolute;
+  content: "";
+  width: calc(100%);
+  border: .5px solid;
+  top: calc(100% / 2);
+  left: 0;
+}
+
+tr > td:first-of-type::after {
+  left: calc(100% / 2);
+  width: calc(100% / 2);
+}
+
+tr > td:last-of-type::after {
+  width: calc(100% / 2);
+}
